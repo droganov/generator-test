@@ -12,10 +12,19 @@ import type { SWRHookFactory } from '@yobta/generator/dist/factories/hooks'
 import type { SWRConfiguration } from 'swr'
 import useSWR from 'swr'
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL
+if (!baseUrl) {
+  throw new Error('Missing NEXT_PUBLIC_API_URL')
+}
+
+const fetcher: typeof fetch = (url, init) => {
+  return fetch(`${baseUrl}${url.toString()}`, init)
+}
+
 export const createServerResolver: ServerResolverFactory =
   (config) => async (input, options) => {
     const [url, init] = createRequestParams(config, input, options)
-    const response = await fetch(url, init)
+    const response = await fetcher(url, init)
     return response.json()
   }
 
@@ -23,7 +32,7 @@ const clientFetch = async <Data>([url, init]: [
   url: RequestInfo,
   init: RequestInit,
 ]): Promise<Data> => {
-  const response = await fetch(url, init)
+  const response = await fetcher(url, init)
   if (!response.ok) {
     throw new Error('Error fetching data')
   }

@@ -15,6 +15,17 @@ interface AudioRecorderHook {
   }
 }
 
+const getMime = (): string | undefined => {
+  const possibleTypes = [
+    'audio/wav',
+    'audio/webm',
+    'audio/webm;codecs=opus',
+    'audio/ogg;codecs=opus',
+  ]
+
+  return possibleTypes.find(MediaRecorder.isTypeSupported)
+}
+
 export const useAudioRecorder: AudioRecorderHook = ({
   maxLengthInSeconds,
 } = {}) => {
@@ -44,7 +55,9 @@ export const useAudioRecorder: AudioRecorderHook = ({
     navigator.mediaDevices
       .getUserMedia({ audio: true })
       .then((stream) => {
-        mediaRecorderRef.current = new MediaRecorder(stream)
+        mediaRecorderRef.current = new MediaRecorder(stream, {
+          mimeType: getMime(),
+        })
 
         mediaRecorderRef.current.ondataavailable = (event) => {
           audioChunks.push(event.data)
@@ -53,7 +66,9 @@ export const useAudioRecorder: AudioRecorderHook = ({
         mediaRecorderRef.current.start()
 
         mediaRecorderRef.current.onstop = () => {
-          setAudio(new Blob(audioChunks, { type: 'audio/wav' }))
+          setAudio(
+            new Blob(audioChunks, { type: mediaRecorderRef.current?.mimeType })
+          )
           if (timer) {
             clearTimeout(timer)
           }

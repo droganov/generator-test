@@ -7,6 +7,27 @@ import { addExpense } from '../../generated/api/client/Default'
 import { useAudioRecorder } from '../hooks/useAudioRecorder'
 const maxLengthInSeconds = 10
 
+// const addExpense = (audio: Blob): Promise<void> => {
+//   return new Promise((resolve, reject) => {
+//     const formData = new FormData()
+//     formData.append('audio', audio)
+//     fetch('http://localhost:8000/expense/add', {
+//       method: 'POST',
+//       body: formData,
+//     })
+//       .then((response) => {
+//         if (response.ok) {
+//           resolve()
+//         } else {
+//           reject()
+//         }
+//       })
+//       .catch((error) => {
+//         reject(error)
+//       })
+//   })
+// }
+
 export const Audio: FunctionComponent = () => {
   const { audio, audioUrl, secondsRemaining, startRecording, stopRecording } =
     useAudioRecorder({
@@ -14,9 +35,7 @@ export const Audio: FunctionComponent = () => {
     })
   useEffect(() => {
     if (audio) {
-      addExpense({
-        formData: { audio },
-      })
+      addExpense({ formData: { audio } })
     }
   }, [audio])
   return (
