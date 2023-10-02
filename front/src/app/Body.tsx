@@ -7,6 +7,7 @@ import { ErrorBoundary } from '../components/Errors/ErrorBoundary'
 import { ErrorToast } from '../components/Errors/ErrorToast'
 import { ConnectionToast } from '../components/Notifications/ConnectionToast'
 import { NotificationToast } from '../components/Notifications/NotificationToast'
+import { RequestsIndication } from '../components/RequestIndication/RequestsIndication'
 
 type Props = {
   children: JSX.Element
@@ -22,6 +23,7 @@ export const Body: FunctionComponent<Props> = ({ children }) => {
         <ErrorToast />
         <NotificationToast />
         <ConnectionToast />
+        <RequestsIndication />
       </ErrorBoundary>
     </body>
   )

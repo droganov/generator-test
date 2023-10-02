@@ -21,6 +21,7 @@ specifiers:
   autoprefixer: ^10.4.14
   c8: ^8.0.0
   clsx: ^1.2.1
+  date-fns: ^2.30.0
   dotenv: ^16.3.1
   eslint: 8.44.0
   eslint-config-next: 13.4.9
@@ -51,11 +52,12 @@ dependencies:
   '@mdx-js/react': 2.3.0_react@18.2.0
   '@next/mdx': 13.4.9_msthxdjvrhmdkfpqqalumiidgq
   '@tailwindcss/typography': 0.5.9_tailwindcss@3.3.2
-  '@yobta/generator': github.com/yobta/generator/96da95bed476a6808bc4df1f306a3da2a26d6830
+  '@yobta/generator': github.com/yobta/generator/c9ffa03f6c8e3f92b7ca06f0f8e4313de0bd5d8a
   '@yobta/stores': 0.2.6
   '@yobta/ui': 0.0.51
   '@yobta/validator': 0.0.42
   clsx: 1.2.1
+  date-fns: 2.30.0
   lodash: 4.17.21
   next: 13.4.9_63tktvor3xwbblcac5shyx4aca
   react: 18.2.0
@@ -113,13 +115,15 @@ packages:
       '@jridgewell/trace-mapping': 0.3.18
     dev: true
 
-  /@apidevtools/json-schema-ref-parser/9.0.9:
-    resolution: {integrity: sha512-GBD2Le9w2+lVFoc4vswGI/TjkNIZSVp7+9xPf+X3uidBfWnAeUWmquteSyt0+VCrhNMWj/FTABISQrD3Z/YA+w==}
+  /@apidevtools/json-schema-ref-parser/11.1.0:
+    resolution: {integrity: sha512-g/VW9ZQEFJAOwAyUb8JFf7MLiLy2uEB4rU270rGzDwICxnxMlPy0O11KVePSgS36K1NI29gSlK84n5INGhd4Ag==}
+    engines: {node: '>= 16'}
     dependencies:
       '@jsdevtools/ono': 7.1.3
-      '@types/json-schema': 7.0.12
-      call-me-maybe: 1.0.2
+      '@types/json-schema': 7.0.13
+      '@types/lodash.clonedeep': 4.5.7
       js-yaml: 4.1.0
+      lodash.clonedeep: 4.5.0
     dev: false
 
   /@babel/runtime/7.22.6:
@@ -731,13 +735,22 @@ packages:
   /@types/json-schema/7.0.12:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
 
+  /@types/json-schema/7.0.13:
+    resolution: {integrity: sha512-RbSSoHliUbnXj3ny0CNFOoxrIDV6SUGyStHsvDqosw6CkdPV8TtWGlfecuK4ToyMEAql6pzNxgCFKanovUzlgQ==}
+    dev: false
+
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
+  /@types/lodash.clonedeep/4.5.7:
+    resolution: {integrity: sha512-ccNqkPptFIXrpVqUECi60/DFxjNKsfoQxSQsgcBJCX/fuX1wgyQieojkcWH/KpE3xzLoWN/2k+ZeGqIN3paSvw==}
+    dependencies:
+      '@types/lodash': 4.14.195
+    dev: false
+
   /@types/lodash/4.14.195:
     resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
-    dev: true
 
   /@types/mdast/3.0.11:
     resolution: {integrity: sha512-Y/uImid8aAwrEA24/1tcRZwpxX3pIFTSilcNDKSPn+Y2iDywSEachzRuvgAYYLR3wpGXAsMbv5lvKLDZLeYPAw==}
@@ -1409,10 +1422,6 @@ packages:
       get-intrinsic: 1.2.1
     dev: true
 
-  /call-me-maybe/1.0.2:
-    resolution: {integrity: sha512-HpX65o1Hnr9HH25ojC1YGs7HCQLq0GCOibSaWER0eNpgJ/Z1MZv2mTc7+xh6WOPxbRVcmgbv4hGU+uSQ/2xFZQ==}
-    dev: false
-
   /caller-callsite/2.0.0:
     resolution: {integrity: sha512-JuG3qI4QOftFsZyOn1qq87fq5grLIyk1JYd5lJmdA+fG7aQ9pA/i3JIJGcO3q0MrRcHlOt1U+ZeHW8Dq9axALQ==}
     engines: {node: '>=4'}
@@ -1619,6 +1628,13 @@ packages:
   /damerau-levenshtein/1.0.8:
     resolution: {integrity: sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==}
     dev: true
+
+  /date-fns/2.30.0:
+    resolution: {integrity: sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==}
+    engines: {node: '>=0.11'}
+    dependencies:
+      '@babel/runtime': 7.22.6
+    dev: false
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -3122,14 +3138,6 @@ packages:
     resolution: {integrity: sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==}
     dev: false
 
-  /json-schema-ref-parser/9.0.9:
-    resolution: {integrity: sha512-qcP2lmGy+JUoQJ4DOQeLaZDqH9qSkeGCK3suKWxJXS82dg728Mn3j97azDMaOUmJAN4uCq91LdPx4K7E8F1a7Q==}
-    engines: {node: '>=10'}
-    deprecated: Please switch to @apidevtools/json-schema-ref-parser
-    dependencies:
-      '@apidevtools/json-schema-ref-parser': 9.0.9
-    dev: false
-
   /json-schema-traverse/0.4.1:
     resolution: {integrity: sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==}
 
@@ -3221,6 +3229,10 @@ packages:
 
   /lodash.castarray/4.4.0:
     resolution: {integrity: sha512-aVx8ztPv7/2ULbArGJ2Y42bG1mEQ5mGjpdvrbJcJFU3TbYybe+QlLS4pst9zV52ymy2in1KpFPiZnAOATxD4+Q==}
+    dev: false
+
+  /lodash.clonedeep/4.5.0:
+    resolution: {integrity: sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ==}
     dev: false
 
   /lodash.isplainobject/4.0.6:
@@ -5425,17 +5437,17 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
     dev: false
 
-  github.com/yobta/generator/96da95bed476a6808bc4df1f306a3da2a26d6830:
-    resolution: {tarball: https://codeload.github.com/yobta/generator/tar.gz/96da95bed476a6808bc4df1f306a3da2a26d6830}
+  github.com/yobta/generator/c9ffa03f6c8e3f92b7ca06f0f8e4313de0bd5d8a:
+    resolution: {tarball: https://codeload.github.com/yobta/generator/tar.gz/c9ffa03f6c8e3f92b7ca06f0f8e4313de0bd5d8a}
     name: '@yobta/generator'
     version: 0.27.1
-    engines: {node: '>=16.14.0'}
+    engines: {node: '>=18.18.0'}
     hasBin: true
     dependencies:
+      '@apidevtools/json-schema-ref-parser': 11.1.0
       camelcase: 6.3.0
       commander: 11.0.0
       fs-extra: 11.1.1
       handlebars: 4.7.8
-      json-schema-ref-parser: 9.0.9
       query-string: 8.1.0
     dev: false

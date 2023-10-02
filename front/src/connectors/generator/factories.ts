@@ -4,18 +4,21 @@ import type {
   ClientResolverFactory,
   EndpointConfig,
   RequestInput,
-  SchemaOptions,
+  EndpointOptions,
   ServerResolverFactory,
 } from '@yobta/generator'
 import { createRequestParams } from '@yobta/generator'
 import type { SWRHookFactory } from '@yobta/generator/dist/factories/hooks'
 import type { SWRConfiguration } from 'swr'
 import useSWR from 'swr'
+import { countRequests } from '../../components/RequestIndication/RequestIndicationStore'
+
+const basePath = 'http://localhost:8000'
 
 export const createServerResolver: ServerResolverFactory =
   (config) => async (input, options) => {
     const [url, init] = createRequestParams(config, input, options)
-    const response = await fetch(url, init)
+    const response = await fetch(`${basePath}${url}`, init)
     return response.json()
   }
 
@@ -23,7 +26,10 @@ const clientFetch = async <Data>([url, init]: [
   url: RequestInfo,
   init: RequestInit,
 ]): Promise<Data> => {
-  const response = await fetch(url, init)
+  countRequests(1)
+  const response = await fetch(`${basePath}${url}`, init).finally(() => {
+    countRequests(-1)
+  })
   if (!response.ok) {
     throw new Error('Error fetching data')
   }
@@ -45,7 +51,7 @@ export const createSwrHook: SWRHookFactory =
   (
     requestInput: Input,
     swrOptions?: SWRConfiguration<Output>,
-    fetchOptions?: SchemaOptions
+    fetchOptions?: EndpointOptions
   ) => {
     const [url, init] = createRequestParams(config, requestInput, fetchOptions)
     return useSWR<Output>([url, init], clientFetch, swrOptions)

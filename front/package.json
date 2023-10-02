@@ -14,7 +14,7 @@
     "lint:fix": "next lint --fix",
     "test": "vitest src --coverage --run",
     "test:watch": "vitest src --coverage",
-    "yobta-api": "generate-yobta --input $API_BASE/openapi.json --output ./generated/api -f src/connectors/generator/factories.ts",
+    "yobta-api": "generate-yobta --input $NEXT_PUBLIC_API_URL/openapi.json --output ./generated/api -f src/connectors/generator/factories.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -27,6 +27,7 @@
     "@yobta/ui": "^0.0.51",
     "@yobta/validator": "^0.0.42",
     "clsx": "^1.2.1",
+    "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
     "next": "^13.4.9",
     "react": "18.2.0",
